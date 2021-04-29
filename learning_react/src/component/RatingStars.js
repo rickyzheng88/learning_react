@@ -1,11 +1,7 @@
 import React from 'react'
-import { FaStar } from 'react-icons/fa'
+import Star from './Star';
 
 const createArray = (length) => [...Array(length)];
-
-function Star({selected = false, onClick = f => f}) {
-    return <FaStar color={selected ? 'red' : 'grey'} onClick={onClick}/>
-}
 
 export default function RatingStars({ totalStars = 5, selectedStars = 3, onRate = f => f}) {
     return (

@@ -6,16 +6,20 @@ export default function Checkbox() {
 
     return (
         <div>
+            <label htmlFor='checkbox'>
+            { check ? 'Checked' : 'Not checked' }
             <input 
+                id='checkbox'
                 type="checkbox"
                 value={check}
                 onChange={toggle}
-            />
-            { check ? 'Checked' : 'Not checked' }
+                data-testid='checkbox'
+            />            
             <button onClick={add30}>
                 Add 30
             </button>
             {number}
+            </label>
         </div>
     )
 }
