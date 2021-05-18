@@ -15,6 +15,16 @@ import RepoMenu from './component/RepoMenu';
 import UserRepositories from './component/UserRepositories';
 import RepositoryReadme from './component/RepositoryReadme';
 import SearchForm from './component/SearchForm';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import {
+    Home,
+    Contact,
+    Error404,
+    Login,
+
+} from './pages/Pages';
+import AboutRoutes from './routes/AboutRoutes';
+import MainRoutes from './routes/MainRoutes';
 
 /**
  * <ColorProvider>
@@ -26,6 +36,39 @@ import SearchForm from './component/SearchForm';
     <Virtualization/>
  */
 
+function App() {
+    return (
+        <Switch>
+            <Route 
+                exact 
+                path='/'
+                render={() => <Home/>}
+            />
+            <Route 
+                path='/about'
+                render={() => <AboutRoutes/>}
+            />
+            <Route 
+                path='/contact'
+                render={() => <Contact/>}
+            />
+            <Route 
+                path='/main'
+                render={() => <MainRoutes/>}
+            />
+            <Route 
+                path='/login'
+                render={() => <Login/>}
+            />
+            <Route 
+                path='*'
+                render={() => <Error404/>}
+            />
+        </Switch>
+    );
+}
+
+/*
 function App() {
   const [login, setLogin] = useState();
   const [repo, setRepo] = useState();
@@ -49,5 +92,5 @@ function App() {
     </>
   )
 }
-
+*/
 export default App;
