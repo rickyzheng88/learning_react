@@ -15,16 +15,17 @@ import RepoMenu from './component/RepoMenu';
 import UserRepositories from './component/UserRepositories';
 import RepositoryReadme from './component/RepositoryReadme';
 import SearchForm from './component/SearchForm';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import {
     Home,
     Contact,
-    Error404,
-    Login,
+    Error404
 
 } from './pages/Pages';
 import AboutRoutes from './routes/AboutRoutes';
 import MainRoutes from './routes/MainRoutes';
+import LoginRoutes from './routes/LoginRoutes';
+import SessionProvider from './provider/SessionProvider';
 
 /**
  * <ColorProvider>
@@ -52,14 +53,20 @@ function App() {
                 path='/contact'
                 render={() => <Contact/>}
             />
-            <Route 
-                path='/main'
-                render={() => <MainRoutes/>}
-            />
-            <Route 
-                path='/login'
-                render={() => <Login/>}
-            />
+            <SessionProvider>
+                <Route 
+                    path='/main'
+                    render={() => (
+                            <MainRoutes/>
+                    )}
+                />
+                <Route 
+                    path='/login'
+                    render={() => (
+                            <LoginRoutes/>
+                    )}
+                />
+            </SessionProvider>
             <Route 
                 path='*'
                 render={() => <Error404/>}

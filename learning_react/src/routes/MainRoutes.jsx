@@ -1,24 +1,30 @@
 import React from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Switch, useRouteMatch } from 'react-router-dom';
+import useSession from '../hooks/useSession';
 import { Main, Profile } from '../pages/Pages';
-import SessionProvider from '../provider/SessionProvider';
+import ProtectedRoute from '../routes/ProtectedRoute';
 
 export default function MainRoutes() {
     const { url } = useRouteMatch();
+    const { isAuthenticated } = useSession();
     
     return (
-        <SessionProvider>
+        
             <Switch>
-                <Route 
+                <ProtectedRoute 
                     exact 
                     path={url}
-                    render={() => <Main/>}
+                    component={Main}
+                    authenticated={isAuthenticated}
+                    redirect='/login'
                 />
-                <Route 
+                <ProtectedRoute 
+                    exact 
                     path={`${url}/profile`}
-                    render={() => <Profile/>}
+                    component={Profile}
+                    authenticated={isAuthenticated}
+                    redirect='/login'
                 />
             </Switch>
-        </SessionProvider>
     );
 }

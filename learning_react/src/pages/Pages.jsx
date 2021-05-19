@@ -13,7 +13,7 @@ const getUserSession = () => {
 }
 
 const isSessionActive = () => {
-    return sessionStorage.length > 0;
+    return sessionStorage.getItem('username') !== "";
 }
 
 const Home = () => {
@@ -62,14 +62,6 @@ const Contact = () => {
 };
 
 const Main = () => {
-    if (!isSessionActive()) {
-        return (
-            <div>
-                <Redirect to='/login'/>
-            </div>
-        )
-    }
-
     return (
         <div>
             [Main Page]
@@ -105,17 +97,9 @@ const Login = () => {
 
     const changeUser = (e) => setInput(e.target.value);
 
-    const setSession = (user) => {
-        sessionStorage.setItem('username', user);
-    }
-
-    if (getUserSession()) {
-        return (
-            <div>
-                <Redirect to='main'/>
-            </div>
-        )
-    }
+    useEffect(() => {
+        if (username) sessionStorage.setItem('username', username);
+    }, [username]);
 
     return (
         <div>
@@ -138,12 +122,12 @@ const Login = () => {
                 <button 
                     onClick={() => {
                         setUsername(input);
-                        setSession(input);
                     }}
                 >
                     Login
                 </button>
                 { getUserSession() || username || 'Login' }
+                { username ? <Redirect to='/main'/> : "" }
             </div>
             
         </div>

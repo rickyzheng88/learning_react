@@ -1,14 +1,17 @@
-import React, { createContext, useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import { getUserSession, isSessionActive } from '../pages/Pages';
+import React, { createContext, useEffect, useState } from 'react';
+import { getUserSession } from '../pages/Pages';
+import useAuthentication from '../hooks/useAuthentication';
 
 export const SessionContext = createContext();
 
 export default function SessionProvider({ children }) {
-    if (!isSessionActive()) return <Redirect to='/login'/>
+    const [isAuthenticated, username] = useAuthentication();
 
     return (
-        <SessionContext.Provider value={{ username: getUserSession() }}>
+        <SessionContext.Provider value={{ 
+            isAuthenticated,
+            username
+        }}>
             {children}
         </SessionContext.Provider>
     );
